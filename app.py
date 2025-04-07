@@ -37,6 +37,28 @@ def registrar_paciente():
         return redirect(url_for('pacientes'))
     return render_template('registrar_paciente.html')
 
+# Editar paciente
+@app.route('/pacientes/editar/<int:id>', methods=['GET', 'POST'])
+def editar_paciente(id):
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        edad = request.form['edad']
+        telefono = request.form['telefono']
+        direccion = request.form['direccion']
+        cursor.execute("UPDATE Pacientes SET nombre=?, edad=?, telefono=?, direccion=? WHERE id=?", (nombre, edad, telefono, direccion, id))
+        conn.commit()
+        return redirect(url_for('pacientes'))
+    cursor.execute("SELECT * FROM Pacientes WHERE id=?", (id,))
+    paciente = cursor.fetchone()
+    return render_template('editar_paciente.html', paciente=paciente)
+
+# Eliminar paciente
+@app.route('/pacientes/eliminar/<int:id>')
+def eliminar_paciente(id):
+    cursor.execute("DELETE FROM Pacientes WHERE id=?", (id,))
+    conn.commit()
+    return redirect(url_for('pacientes'))
+
 # -----------------------------
 # DOCTORES
 # -----------------------------
@@ -56,6 +78,25 @@ def registrar_doctor():
         conn.commit()
         return redirect(url_for('doctores'))
     return render_template('registrar_doctor.html')
+
+@app.route('/doctores/editar/<int:id>', methods=['GET', 'POST'])
+def editar_doctor(id):
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        especialidad = request.form['especialidad']
+        telefono = request.form['telefono']
+        cursor.execute("UPDATE Doctores SET nombre=?, especialidad=?, telefono=? WHERE id=?", (nombre, especialidad, telefono, id))
+        conn.commit()
+        return redirect(url_for('doctores'))
+    cursor.execute("SELECT * FROM Doctores WHERE id=?", (id,))
+    doctor = cursor.fetchone()
+    return render_template('editar_doctor.html', doctor=doctor)
+
+@app.route('/doctores/eliminar/<int:id>')
+def eliminar_doctor(id):
+    cursor.execute("DELETE FROM Doctores WHERE id=?", (id,))
+    conn.commit()
+    return redirect(url_for('doctores'))
 
 # -----------------------------
 # CITAS
@@ -77,7 +118,7 @@ def programar_cita():
     if request.method == 'POST':
         paciente_id = int(request.form['paciente_id'])
         doctor_id = int(request.form['doctor_id'])
-        fecha_str = request.form['fecha']  # viene como '2025-04-07T15:30'
+        fecha_str = request.form['fecha']  
         motivo = request.form['motivo']
 
         # ✅ Convertir a datetime
@@ -105,11 +146,11 @@ def programar_cita():
 @app.route('/citas/editar/<int:id>', methods=['GET', 'POST'])
 def editar_cita(id):
     if request.method == 'POST':
-        fecha_str = request.form['fecha']  # viene como string tipo '2025-04-07T15:30'
+        fecha_str = request.form['fecha']  
         motivo = request.form['motivo']
 
         try:
-            fecha = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')  # ✅ convertir a datetime
+            fecha = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')  
         except ValueError:
             return "Fecha inválida, asegúrate de usar el selector correctamente."
 

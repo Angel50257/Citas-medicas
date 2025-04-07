@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Paciente{% endblock %}
+{% block content %}
+<form method="POST">
+    <input name="nombre" value="{{ paciente.nombre }}" class="form-control mb-2" required>
+    <input name="edad" type="number" value="{{ paciente.edad }}" class="form-control mb-2">
+    <input name="telefono" value="{{ paciente.telefono }}" class="form-control mb-2">
+    <input name="direccion" value="{{ paciente.direccion }}" class="form-control mb-2">
+    <button class="btn btn-primary">Actualizar</button>
+</form>
+{% endblock %}

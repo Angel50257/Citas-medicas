@@ -3,11 +3,24 @@
 {% block content %}
 <a href="{{ url_for('registrar_doctor') }}" class="btn btn-primary mb-2">Registrar Doctor</a>
 <table class="table">
-    <tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Telefono</th></tr>
-    {% for d in doctores %}
-    <tr>
-        <td>{{ d.id }}</td><td>{{ d.nombre }}</td><td>{{ d.especialidad }}</td><td>{{ d.telefono }}</td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th>ID</th><th>Nombre</th><th>Especialidad</th><th>Teléfono</th><th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for d in doctores %}
+        <tr>
+            <td>{{ d.id }}</td>
+            <td>{{ d.nombre }}</td>
+            <td>{{ d.especialidad }}</td>
+            <td>{{ d.telefono }}</td>
+            <td>
+                <a href="{{ url_for('editar_doctor', id=d.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{{ url_for('eliminar_doctor', id=d.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este doctor?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

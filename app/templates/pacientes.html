@@ -3,13 +3,28 @@
 {% block content %}
 <a href="{{ url_for('registrar_paciente') }}" class="btn btn-primary mb-2">Registrar Paciente</a>
 <table class="table">
-    <tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Telefono</th><th>Dirección</th><th>Historial</th></tr>
-    {% for p in pacientes %}
-    <tr>
-        <td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.edad }}</td>
-        <td>{{ p.telefono }}</td><td>{{ p.direccion }}</td>
-        <td><a href="{{ url_for('historial_paciente', id=p.id) }}" class="btn btn-sm btn-info">Ver</a></td>
-    </tr>
-    {% endfor %}
+    <thead>
+        <tr>
+            <th>ID</th><th>Nombre</th><th>Edad</th><th>Teléfono</th><th>Dirección</th><th>Historial</th><th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in pacientes %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.edad }}</td>
+            <td>{{ p.telefono }}</td>
+            <td>{{ p.direccion }}</td>
+            <td>
+                <a href="{{ url_for('historial_paciente', id=p.id) }}" class="btn btn-sm btn-info">Ver</a>
+            </td>
+            <td>
+                <a href="{{ url_for('editar_paciente', id=p.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <a href="{{ url_for('eliminar_paciente', id=p.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este paciente?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

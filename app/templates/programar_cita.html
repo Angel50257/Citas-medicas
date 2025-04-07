@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}Programar Cita{% endblock %}
+{% block content %}
+<form method="POST">
+    <select name="paciente_id" class="form-control mb-2" required>
+        <option value="">Seleccione Paciente</option>
+        {% for p in pacientes %}<option value="{{ p.id }}">{{ p.nombre }}</option>{% endfor %}
+    </select>
+    <select name="doctor_id" class="form-control mb-2" required>
+        <option value="">Seleccione Doctor</option>
+        {% for d in doctores %}<option value="{{ d.id }}">{{ d.nombre }}</option>{% endfor %}
+    </select>
+    <input name="fecha" type="datetime-local" class="form-control mb-2" required>
+    <input name="motivo" placeholder="Motivo de la cita" class="form-control mb-2">
+    <button class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

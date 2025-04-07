@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block title %}Doctores{% endblock %}
+{% block content %}
+<a href="{{ url_for('registrar_doctor') }}" class="btn btn-primary mb-2">Registrar Doctor</a>
+<table class="table">
+    <tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Telefono</th></tr>
+    {% for d in doctores %}
+    <tr>
+        <td>{{ d.id }}</td><td>{{ d.nombre }}</td><td>{{ d.especialidad }}</td><td>{{ d.telefono }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

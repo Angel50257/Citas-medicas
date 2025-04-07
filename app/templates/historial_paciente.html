@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}Historial de {{ paciente.nombre }}{% endblock %}
+{% block content %}
+<h3>Historial de citas de {{ paciente.nombre }}</h3>
+<table class="table">
+    <tr><th>Fecha</th><th>Motivo</th><th>Doctor</th></tr>
+    {% for h in historial %}
+    <tr>
+        <td>{{ h.fecha }}</td><td>{{ h.motivo }}</td><td>{{ h.doctor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{{ url_for('pacientes') }}" class="btn btn-secondary">Volver</a>
+{% endblock %}

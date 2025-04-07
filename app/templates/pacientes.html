@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}Pacientes{% endblock %}
+{% block content %}
+<a href="{{ url_for('registrar_paciente') }}" class="btn btn-primary mb-2">Registrar Paciente</a>
+<table class="table">
+    <tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Telefono</th><th>Dirección</th><th>Historial</th></tr>
+    {% for p in pacientes %}
+    <tr>
+        <td>{{ p.id }}</td><td>{{ p.nombre }}</td><td>{{ p.edad }}</td>
+        <td>{{ p.telefono }}</td><td>{{ p.direccion }}</td>
+        <td><a href="{{ url_for('historial_paciente', id=p.id) }}" class="btn btn-sm btn-info">Ver</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

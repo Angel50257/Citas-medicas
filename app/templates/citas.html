@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block title %}Citas{% endblock %}
+{% block content %}
+<a href="{{ url_for('programar_cita') }}" class="btn btn-primary mb-2">Programar Cita</a>
+<table class="table">
+    <tr><th>ID</th><th>Paciente</th><th>Doctor</th><th>Fecha</th><th>Motivo</th><th>Acciones</th></tr>
+    {% for c in citas %}
+    <tr>
+        <td>{{ c.id }}</td><td>{{ c.paciente }}</td><td>{{ c.doctor }}</td>
+        <td>{{ c.fecha }}</td><td>{{ c.motivo }}</td>
+        <td>
+            <a href="{{ url_for('editar_cita', id=c.id) }}" class="btn btn-sm btn-warning">Editar</a>
+            <a href="{{ url_for('eliminar_cita', id=c.id) }}" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

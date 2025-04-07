@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block title %}Editar Cita{% endblock %}
+{% block content %}
+<form method="POST">
+    <input name="fecha" type="datetime-local" value="{{ cita.fecha|replace(' ', 'T') }}" class="form-control mb-2" required>
+    <input name="motivo" value="{{ cita.motivo }}" class="form-control mb-2">
+    <button class="btn btn-primary">Actualizar</button>
+</form>
+{% endblock %}

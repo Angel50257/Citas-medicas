@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block title %}Registrar Doctor{% endblock %}
+{% block content %}
+<form method="POST">
+    <input name="nombre" placeholder="Nombre" class="form-control mb-2" required>
+    <input name="especialidad" placeholder="Especialidad" class="form-control mb-2">
+    <input name="telefono" placeholder="Telefono" class="form-control mb-2">
+    <button class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}
